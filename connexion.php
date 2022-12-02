@@ -12,6 +12,7 @@
     }
     catch(PDOEXCEPTION $e)
    {
+    // en cas d'erreur de connexion de bdd
     $e->getMessage();
    }
 ?>
