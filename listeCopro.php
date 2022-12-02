@@ -4,22 +4,24 @@ session_start();
 require('connexion.php');
 require('_navbar.php');
 
-if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 )	//check unauthorize user not access in "welcome.php" page
-						{
+// verifier si il y a une session est existante ou si elle a depassé 2Min
+if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 )
+{
+session_destroy();
 
-							session_destroy();
-
-							header("location: index.php");
-						}
+// si non retour a la page de connexion
+header("location: index.php");	
+}
 
 echo'<table>';
-
+// TODO: on peut interoge la base de donnnés pour avoir 
 echo'<tr>';
 echo'<td> prenom </td>';
 echo'<td> nom </td>';
 echo'<td> tantieme </td>';
 echo'</tr>';
 
+// on interoge la base de données pour affiche toute la liste des utilisateur
 foreach ( $db -> query('SELECT * FROM coproprietaires')as $row) {
     
     echo '<tr>';
