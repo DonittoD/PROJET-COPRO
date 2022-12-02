@@ -4,14 +4,17 @@ session_start();
 require('connexion.php');
 require('_navbar.php');
 
-if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 )	//check unauthorize user not access in "welcome.php" page
-						{
+// verifier si il y a une session est existante ou si elle a depassé 2Min
+if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 )
+{
+session_destroy();
 
-							session_destroy();
+// si non retour a la page de connexion
+header("location: index.php");	
+}
 
-							header("location: index.php");
-						}
-
+// la creation d'une table 
+// TODO: on peut mettre ici des interogation a la base de données pour avoir le données de table  
 
 echo'<table>
 <tr> toutes les propositions de l\'assemble générale </tr><br>';                       
@@ -21,7 +24,7 @@ echo'<th> année </th>';
 echo'<th>valide </th>';
 echo'</tr>';
 
-
+// ici c'est un interogation a la base de donnée qui marche pour la table proposition
     // foreach ( $db -> query('SELECT * FROM propositions')as $row) {
     
     // echo '<tr>';
@@ -30,6 +33,7 @@ echo'</tr>';
     // echo'</tr>';
     // }
 
+// on interoge la base de donnée qui est sur la table proposition_ag
 foreach ($db->query('SELECT * FROM propositions_ag') as $row) {
     
     echo '<tr>
