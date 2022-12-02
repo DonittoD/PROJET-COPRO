@@ -2,21 +2,22 @@
 // 
 require_once 'connexion.php';
 
-// 
-session_start();
+	session_start();
 
-// 
-if(isset($_SESSION["user_login"]))	//check condition user login not direct back to index.php page
-{
-	header("location: dashboard.php");
-}
+	// on verifie si l'utilisateur a est connecter 
+	// si oui il est redirigé vers la page dashboard 
+	if(isset($_SESSION["user_login"]))	
+		{
+		header("location: dashboard.php");
+	}
 
-// 
-if(isset($_REQUEST['btn_login']))	//button name is "btn_login" 
+// si on verifie si l'utilisateur a cliqué sur le bouton 
+if(isset($_REQUEST['btn_login']))	 
 {
-	$username	=strip_tags($_REQUEST["txt_username"]);	//textbox name "txt_username_username"		//textbox name "txt_password"
+	// si oui on utilise la la fonction strip_tags qui permet de netoyer les information de tout script
+	$username	=strip_tags($_REQUEST["txt_username"]);	//textbox name "txt_username_username"		
 		
-	// 
+	// on verifie si l'utilisateur a mis une valeur
 	if(empty($username)){						
 		$errorMsg[]="un champs est vide";	//check si il y a un champs qui est vide
 	}
@@ -25,18 +26,25 @@ if(isset($_REQUEST['btn_login']))	//button name is "btn_login"
 	{
 		try
 		{
-			$select_stmt=$db->prepare("SELECT * FROM coproprietaires WHERE prenom=:uname"); //sql select query
-			$select_stmt->execute(array(':uname'=>$username,));	//execute query with bind parameter
+			
+			// on prepare la requete pour interoge la base de données pour que l'utilisateur accedes a son compte
+			$select_stmt=$db->prepare("SELECT * FROM coproprietaires WHERE prenom=:uname");
+			
+			// on bind param la valeur username pour evité toutes injection sql
+			$select_stmt->execute(array(':uname'=>$username,));	
+			
+			// on recupere les information en tableau associatif
 			$row=$select_stmt->fetch(PDO::FETCH_ASSOC);
 			
-			if($select_stmt->rowCount() > 0)	//check condition database record greater zero after continue
+			// on verfier qu'on reçois bien une valeur de la parde de la bdd
+			if($select_stmt->rowCount() > 0)	
 			{
-					if($username==$row["prenom"] ) //check condition user taypable "password" are match from database "password" using password_verify() after continue
+					if($username==$row["prenom"] ) //on verifie si le nom et le nom de la bdd son equivalent
 					{
 						$_SESSION["user_login"] = $row["id"];	//session name is "user_login"
-                        $_SESSION["name_user"] = $row["prenom"];
-						$_SESSION['login_time'] = time();		//user login success message
-						header("dashboard.php");			//refresh 2 second after redirect to "welcome.php" page
+                        $_SESSION["name_user"] = $row["prenom"]; 
+						$_SESSION['login_time'] = time();		// on crée une minuterie 
+						header("dashboard.php");			//on est redirigé dans le dashboard
 					
 					}else{ $errorMsg[]="wrong password";}
 
