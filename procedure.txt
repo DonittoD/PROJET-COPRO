@@ -1,0 +1,13 @@
+BEGIN
+    DECLARE pour DECIMAL(2);
+    
+    SELECT ((SELECT SUM(tantieme)
+             FROM Coproprietaires
+             INNER JOIN Votes ON Votes.idCopro = id
+             WHERE Votes.idProposition = proposition AND pourContre = 1) / (SUM(tantieme)) * 100)
+    INTO pour
+    FROM coproprietaires;
+    
+    SELECT pour > 50 AS pouroucontre;
+END
+
