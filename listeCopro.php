@@ -12,7 +12,7 @@ session_destroy();
 // si non retour a la page de connexion
 header("location: index.php");	
 }
-
+echo'<div class="information_utilisateur"> tout les copropriétaire :';
 echo'<table>';
 // TODO: on peut interoge la base de donnnés pour avoir 
 echo'<tr>';
@@ -33,8 +33,7 @@ foreach ( $db -> query('SELECT * FROM coproprietaires')as $row) {
 }
 
 echo'</table>';
-echo"<br>";
-echo'<a href="disconect.php"> disconect</a>';
+echo"</div><br>";
 
 
 ?>
