@@ -15,7 +15,7 @@ header("location: index.php");
 ?>
 
 <!-- creation du formulaire qui part sur la page valide.php -->
-<form method="GET" action='valide.php'>
+<form class='vote'method="GET" action='valide.php'>
 
 <label for="select_vote">Choisisez la proposition de l'Assemble General:</label>
 
@@ -47,7 +47,6 @@ foreach ( $db -> query('SELECT libelle, idProposition FROM propositions INNER JO
                 </div>
                 
     </fieldset>
-
 </form>
 
                     
