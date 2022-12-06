@@ -1,6 +1,6 @@
 <?php
 require_once 'connexion.php';
-
+include ('_navbar.php');
 	session_start();
 
 	// on verifie si l'utilisateur a est connecter 
@@ -15,9 +15,10 @@ if(isset($_REQUEST['btn_login']))
 {
 	// si oui on utilise la la fonction strip_tags qui permet de netoyer les information de tout script
 	$username	=strip_tags($_REQUEST["txt_username"]);	//textbox name "txt_username_username"		
-		
+	$password	=strip_tags($_REQUEST["txt_password"]);	//textbox name "txt_password"
+
 	// on verifie si l'utilisateur a mis une valeur
-	if(empty($username)){						
+	if(empty($username || $password)){						
 		$errorMsg[]="un champs est vide";	//check si il y a un champs qui est vide
 	}
 
@@ -38,16 +39,22 @@ if(isset($_REQUEST['btn_login']))
 			// on verfier qu'on reçois bien une valeur de la parde de la bdd
 			if($select_stmt->rowCount() > 0)	
 			{
-					if($username==$row["prenom"] ) //on verifie si le nom et le nom de la bdd son equivalent
-					{
-						$_SESSION["user_login"] = $row["id"];	//session name is "user_login"
-                        $_SESSION["name_user"] = $row["prenom"]; 
-						$_SESSION['login_time'] = time();		// on crée une minuterie 
-						header("dashboard.php");			//on est redirigé dans le dashboard
-					
-					}else{ $errorMsg[]="wrong password";}
+				if($username==$row["prenom"]) //check condition user taypable "username or email" are both match from database "username or email" after continue
+				{
+						 if(($password == $row["password"])){
+							$_SESSION["user_login"] = $row["id"];	//session name is "user_login"
+                        	$_SESSION["name_user"] = $row["prenom"];
+							$_SESSION["scnd_name_user"]=$row['nom'] ;
+							$_SESSION['login_time'] = time();		// on crée une minuterie 
+							
+							$loginMsg = "Successfully Login...";
+							header("refresh:2; dashboard.php");					//on est redirigé dans le dashboard
+						
+						 }else{ $errorMsg[]="wrong password";} 
 
-			}
+						}else{$errorMsg[]="wrong username or email"; }
+
+			} else{$errorMsg[]="wrong username";}
 		}
 
 		catch(PDOException $e)
@@ -87,26 +94,21 @@ if(isset($_REQUEST['btn_login']))
 		?>   
 			<div class ="page_de_connexion"><h2>Connexion</h2>
 				<form method="post">	
-					<div>
-						<label >Identifiant</label>
-					</div>	
-					<div>
-						<input type="text" name="txt_username" class="form-control" placeholder="enter votre identifiant ou email" />
+					<div class='identifiant_de_connexion'>
+						<div>
+							<label >Identifiant : </label>
+							<input type="text" name="txt_username"  placeholder="entrez votre identifiant " />
+						</div>
+					
+						<div>
+							<label >Mot de passe :</label>
+							<input type="password" name="txt_password" placeholder="entrez votre mots de passe " />
+						</div>
+					
+						<input type="submit" name="btn_login" class="identifiant_de_connexion" value="connexion">
 					</div>
+				</form>
 			</div>
-				
-				<div>
-					<div >
-						<input type="submit" name="btn_login" class="" value="connexion">
-					</div>
-				</div>
-			</form>
-			
-		</div>
-		
-	</div>
-			
-	</div>
 
 	</body>
 </html>
