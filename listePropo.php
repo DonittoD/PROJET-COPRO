@@ -15,7 +15,7 @@ header("location: index.php");
 
 // la creation d'une table 
 // TODO: on peut mettre ici des interogation a la base de données pour avoir le données de table  
-
+echo'<div class="information_utilisateur"> tout les proposition :';
 echo'<table>
 <tr> toutes les propositions de l\'assemble générale </tr><br>';                       
 echo'<tr>';
@@ -44,7 +44,7 @@ foreach ($db->query('SELECT * FROM propositions_ag') as $row) {
 
 }
 echo '</table>';
-
+echo'</div>';
 
 
 ?>
