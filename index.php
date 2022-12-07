@@ -45,6 +45,7 @@ if(isset($_REQUEST['btn_login']))
 							$_SESSION["user_login"] = $row["id"];	//session name is "user_login"
                         	$_SESSION["name_user"] = $row["prenom"];
 							$_SESSION["scnd_name_user"]=$row['nom'] ;
+							$_SESSION["role"] = $row['role'] ;
 							$_SESSION['login_time'] = time();		// on crée une minuterie 
 							
 							$loginMsg = "Successfully Login...";
