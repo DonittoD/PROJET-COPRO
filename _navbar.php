@@ -97,7 +97,12 @@ echo'<div class="block_navigation"><a class="hyperlien" href="dashboard.php">das
 echo'<a class="hyperlien" href="listeCopro.php">liste coproprietaires </a>';
 echo'<a class="hyperlien" href="listePropo.php">liste propositoin assemble general</a>';
 echo'<a class="hyperlien" href="vote.php">insertion de vote</a>';
-echo'<a class="hyperlien" href="resultat.php">historique des vote</a>';
+
+if($_SESSION["role"] === 'admin'){
+
+    echo'<a class="hyperlien" href="resultat.php">admin dashboard</a>';
+    
+}
 
 }
 
