@@ -5,7 +5,7 @@ require('connexion.php');
 require('_navbar.php');
 
 // verifier si il y a une session est existante ou si elle a depassé 2Min
-if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 )
+if (!isset($_SESSION['user_login']) || time() - $_SESSION['login_time'] > 120 || $_SESSION['role'] != 'admin')
 {
 session_destroy();
 
@@ -13,10 +13,9 @@ session_destroy();
 header("location: index.php");	
 }
 
-    echo'<table>';
-    
+echo'<div class="information_utilisateur">historique des votant <table>';    
     // on interoge la base de données pour verifier si l'utilisateur a voté
-    foreach( $db -> query('SELECT * FROM votes INNER JOIN propositions ON propositions.id = votes.idProposition WHERE idCopro ='.$_SESSION['user_login']) as $row){ 
+    foreach( $db -> query('SELECT * FROM votes INNER JOIN coproprietaires ON coproprietaires.id = votes.idCopro  INNER JOIN propositions ON propositions.id = votes.idProposition ') as $row){ 
         if($row['pourContre']){
             $variable = 'pour';
         }else{
@@ -25,7 +24,7 @@ header("location: index.php");
 
         echo '<tr>';
         echo"<td>". $row['idCopro']."</td>";
-        echo"<td>". $_SESSION['name_user']."</td>";
+        echo"<td>". $row['prenom']."</td>";
         echo '<td>' . $row['libelle'] .'</td>';
         echo"<td>". $row['annee']."</td>";
         echo"<td>". $variable."</td>";
