@@ -1,4 +1,5 @@
 <!-- la fiche de style css -->
+<title>Projet Ross</title>
 <style>
         table,td,th{
             border:1px solid black;
@@ -97,11 +98,12 @@ echo'<div class="block_navigation"><a class="hyperlien" href="dashboard.php">das
 echo'<a class="hyperlien" href="listeCopro.php">liste coproprietaires </a>';
 echo'<a class="hyperlien" href="listePropo.php">liste propositoin assemble general</a>';
 echo'<a class="hyperlien" href="vote.php">insertion de vote</a>';
+// le hyperlien pour se deconnecter
+echo'<a class="deconnexion" href="disconect.php"> déconexion</a>';
 
 if($_SESSION["role"] === 'admin'){
 
     echo'<a class="hyperlien" href="resultat.php">admin dashboard</a>';
-    
 }
 
 }
