@@ -82,6 +82,5 @@ foreach( $db -> query('SELECT * FROM votes INNER JOIN propositions ON propositio
 echo'</table>';
 echo"</div><br>";
 
-// le hyperlien pour se deconnecter
-echo'<a class="deconnexion" href="disconect.php"> déconexion</a>';
+
 ?>  
