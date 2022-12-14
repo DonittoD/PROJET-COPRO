@@ -19,21 +19,23 @@ echo'<div class="information_utilisateur"> tout les proposition :';
 echo'<table>
 <tr> toutes les propositions de l\'assemble générale </tr><br>';                       
 echo'<tr>';
-echo'<th> id proposition </th>';
-echo'<th> année </th>';
-echo'<th>valide </th>';
+echo'<td> ID  :</td>';
+echo'<td> SUJET DE PROPOSITION :</td>';
+echo'<td> ANNEE :</td>';
+echo'<td>TEMP :</td>';
 echo'</tr>';
 
 
 
 // on interoge la base de donnée qui est sur la table proposition_ag
-foreach ($db->query('SELECT * FROM propositions_ag') as $row) {
-    
+foreach ($db->query('SELECT idProposition, annee,valide, libelle FROM propositions_ag INNER JOIN propositions ON propositions.id = propositions_ag.idProposition') as $row) {
+
     echo '<tr>
     <td>'. $row['idProposition'].' </td>
+    <td>'.$row['libelle'].'</td>
     <td>' . $row['annee']. '</td>
-    <td>' . $row['valide'].'</td>
-    </tr>';
+    <td>' ; if($row['valide'] == null){ echo' en cours </td>'; }else{ echo' terminée </td>'; }
+    echo '</tr>';
 
 }
 echo '</table>';
