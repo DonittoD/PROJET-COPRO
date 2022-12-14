@@ -21,9 +21,9 @@ echo'<table>';
 
    // ici c'est les titres du tableaux
    echo'<tr>';
-   echo'<td> prenom : </td>';
-   echo'<td> nom : </td>';
-   echo'<td> tantieme : </td>';
+   echo'<td> PRENOM : </td>';
+   echo'<td> NOM : </td>';
+   echo'<td> TANTIEME : </td>';
    echo'</tr>';
 
    // on affiche les valeur que l'on a eu sur la requete
@@ -36,8 +36,12 @@ echo'<table>';
 echo'</table>';
 echo"</div><br>";
 
-echo'<div class="information_utilisateur">information sur toutes les propositions';
-echo'<table>';
+echo'<div class="information_utilisateur">information sur toutes les propositions <table>';
+
+   echo'<tr>';
+   echo'<td> ID : </td>';
+   echo'<td> SUJET : </td>';
+   echo'</tr>';
 
 // ici c'est un interogation a la base de donnée qui marche pour la table proposition
     foreach ( $db -> query('SELECT * FROM propositions')as $row) {
@@ -54,11 +58,11 @@ echo'</div>';
 echo'<div class="information_utilisateur">historique de '. $_SESSION["name_user"].'<table>';
    
    echo'<tr>';
-   echo'<td> id : </td>';
-   echo'<td> prenom : </td>';
-   echo'<td> sujet : </td>';
-   echo'<td> année : </td>';
-   echo'<td> sujet du vote : </td>';
+   echo'<td> ID : </td>';
+   echo'<td> PRENOM : </td>';
+   echo'<td> SUJET : </td>';
+   echo'<td> ANNE : </td>';
+   echo'<td> VOTE : </td>';
    echo'</tr>';
     
 // on interoge la base de données pour verifier si l'utilisateur a voté
