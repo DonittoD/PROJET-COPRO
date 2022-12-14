@@ -49,7 +49,7 @@ if(isset($_REQUEST['btn_login']))
 							$_SESSION['login_time'] = time();		// on crée une minuterie 
 							
 							$loginMsg = "Successfully Login...";
-							header("refresh:2; dashboard.php");					//on est redirigé dans le dashboard
+							header("refresh:1; dashboard.php");					//on est redirigé dans le dashboard
 						
 						 }else{ $errorMsg[]="wrong password";} 
 
