@@ -14,15 +14,15 @@ header("location: index.php");
 }
 echo'<div class="information_utilisateur"> tout les copropriétaire :';
 echo'<table>';
-// TODO: on peut interoge la base de donnnés pour avoir 
-echo'<tr>';
-echo'<td> prenom </td>';
-echo'<td> nom </td>';
-echo'<td> tantieme </td>';
-echo'</tr>';
+
+    echo'<tr>';
+    echo'<td> PRENOM :</td>';
+    echo'<td> NOM : </td>';
+    echo'<td> TANTIEME : </td>';
+    echo'</tr>';
 
 // on interoge la base de données pour affiche toute la liste des utilisateur
-foreach ( $db -> query('SELECT * FROM coproprietaires')as $row) {
+foreach ( $db -> query('SELECT * FROM coproprietaires ORDER BY tantieme')as $row) {
     
     echo '<tr>';
     echo"<td>". $row['prenom']."</td>";
