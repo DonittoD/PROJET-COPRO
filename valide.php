@@ -52,7 +52,7 @@ else
     }else{
 
         // on interoge la base de données pour savoir cmb de vantant on a besoin 
-        foreach($db -> query('SELECT libelle FROM propositions INNER JOIN propositions_ag ON propositions.id = propositions_ag.idProposition WHERE idProposition = ' . $_GET['idProposition'] . '') as $row){
+        foreach($db -> query('SELECT libelle FROM propositions INNER JOIN propositions_ag ON propositions.id = propositions_ag.idProposition WHERE zidProposition = ' . $_GET['idProposition'] . '') as $row){
 
             // sinon on affiche le nom de l'utilisateur qui a voté (pour ou contre) et la proposiotion
             echo $_SESSION['name_user']." a voté ".$valeurDuVote.' dans la proposition '.$row['libelle'];
