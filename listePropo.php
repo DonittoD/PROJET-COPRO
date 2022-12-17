@@ -28,13 +28,15 @@ echo'</tr>';
 
 
 // on interoge la base de donnée qui est sur la table proposition_ag
-foreach ($db->query('SELECT idProposition, annee,valide, libelle FROM propositions_ag INNER JOIN propositions ON propositions.id = propositions_ag.idProposition') as $row) {
+foreach ($db->query('SELECT * FROM propositions_ag INNER JOIN propositions ON propositions.id = propositions_ag.idProposition') as $row) {
 
     echo '<tr>
     <td>'. $row['idProposition'].' </td>
     <td>'.$row['libelle'].'</td>
     <td>' . $row['annee']. '</td>
-    <td>' ; if($row['valide'] == null){ echo' en cours </td>'; }else{ echo' terminée </td>'; }
+    <td>' ; if($row['valide'] == null){
+                echo' en cours </td>'; 
+            }else{ echo' terminée </td>'; }
     echo '</tr>';
 
 }
